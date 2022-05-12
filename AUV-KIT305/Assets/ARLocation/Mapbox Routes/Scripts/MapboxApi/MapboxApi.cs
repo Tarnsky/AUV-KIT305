@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System;
 using System.Collections;
-using System.Globalization;
 
 namespace ARLocation.MapboxRoutes
 {
@@ -81,14 +80,7 @@ namespace ARLocation.MapboxRoutes
         public IEnumerator QueryRoute(Location from, Location to, bool alternatives = false, bool verbose = false)
         {
             string alt = alternatives ? "true" : "false";
-
-            var fromLat = from.Latitude.ToString(CultureInfo.InvariantCulture);
-            var fromLon = from.Longitude.ToString(CultureInfo.InvariantCulture);
-            var toLat = to.Latitude.ToString(CultureInfo.InvariantCulture);
-            var toLon = to.Longitude.ToString(CultureInfo.InvariantCulture);
-            
-            string url = $"https://api.mapbox.com/directions/v5/mapbox/walking/{fromLon}%2C{fromLat}%3B{toLon}%2C{toLat}?alternatives={alt}&geometries=geojson&steps=true&access_token={AccessToken}";
-            
+            string url = $"https://api.mapbox.com/directions/v5/mapbox/walking/{from.Longitude}%2C{from.Latitude}%3B{to.Longitude}%2C{to.Latitude}?alternatives={alt}&geometries=geojson&steps=true&access_token={AccessToken}";
             errorMessage = null;
             queryRouteResult = null;
 
